@@ -4,7 +4,7 @@
     <img src="https://img.shields.io/pub/v/getstream.svg"  
       alt="Pub Package" />  
   </a> 
-   <a href="https://github.com/jonataslaw/getstream/getstream/issues">  
+   <a href="https://github.com/jonataslaw/getstream/issues">  
     <img src="https://img.shields.io/github/issues/jonataslaw/getstream"  
       alt="Issue" />  
   </a> 
