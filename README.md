@@ -1,8 +1,61 @@
 # GetStream
 
+   <a href="https://pub.dartlang.org/packages/getstream">  
+    <img src="https://img.shields.io/pub/v/getstream.svg"  
+      alt="Pub Package" />  
+  </a> 
+   <a href="https://github.com/jonataslaw/getstream/getstream/issues">  
+    <img src="https://img.shields.io/github/issues/jonataslaw/getstream"  
+      alt="Issue" />  
+  </a> 
+   <a href="https://github.com/jonataslaw/getstream/network">  
+    <img src="https://img.shields.io/github/forks/jonataslaw/getstream"  
+      alt="Forks" />  
+  </a> 
+   <a href="https://github.com/jonataslaw/getstream/stargazers">  
+    <img src="https://img.shields.io/github/stars/jonataslaw/getstream"  
+      alt="Stars" />  
+  </a>
+  <br>
+  <br>
+
 GetStream is the lightest and most performative way of working with events at Dart. Streams are cool, but you don't always need them. ChangeNotifier is easy, but not as powerful, is slow and makes it difficult to remove listeners. GetStream is very light, and works with simple callbacks. In this way, every event calls only one function. There is no buffering, and you have very low memory consumption.
 
-## Usage
+# Lets Get Started
+
+### 1. Depend on it
+Add this to your package's `pubspec.yaml` file:
+
+```yaml
+dependencies:
+  getstream:
+```
+
+### 2. Install it
+
+You can install packages from the command line:
+
+with `pub`:
+
+```css
+$  pub get
+```
+
+with `Flutter`:
+
+```css
+$  flutter packages get
+```
+
+### 3. Import it
+
+Now in your `Dart` code, you can use: 
+
+````dart
+import 'package:getstream/getstream.dart';
+````
+
+# Usage
 
 A simple usage example:
 
@@ -11,9 +64,11 @@ import 'package:getstream/getstream.dart';
 
 void main() {
   final controller = GetStream<int>();
+  
   controller.listen((event) {
     print('change number to $event');
   });
+  
   controller.add(2);
   controller.add(3);
   controller.add(4);
@@ -21,6 +76,7 @@ void main() {
   final subs = controller.listen((event) {
     print('change number to $event');
   });
+  
   controller.add(5);
   controller.add(6);
   controller.add(2);
@@ -33,8 +89,8 @@ void main() {
 
 
 ```
-## How more fast? 
-In tests on the VM dart, GetStream is 2650% faster than the conventional Stream. If you want to run this test yourself, you can run this sample code:
+# How more fast? 
+In tests on the VM dart, **```GetStream is 2650% faster```** than the conventional Stream. If you want to run this test yourself, you can run this sample code:
 
 ```dart
 import 'dart:async';
@@ -51,6 +107,7 @@ void main() async {
 int times = 30000;
 int get last => times - 1;
 
+/// GET_STREAM
 Future<String> getStream() {
   final c = Completer<String>();
   final value = GetStream<int>();
@@ -72,6 +129,7 @@ Future<String> getStream() {
   return c.future;
 }
 
+/// Conventional Stream
 Future<String> stream() {
   final c = Completer<String>();
   final value = StreamController<int>();
