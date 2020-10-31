@@ -3,7 +3,13 @@ import 'dart:async';
 typedef OnData<T> = void Function(T data);
 typedef Callback = void Function();
 
-/// [GetStream] is a very light stream
+/// [GetStream] is the lightest and most performative way of working
+/// with events at Dart. You sintaxe is like StreamController, but it works
+/// with simple callbacks. In this way, every event calls only one function.
+/// There is no buffering, to very low memory consumption.
+/// event [add] will add a object to stream. [addError] will add a error to stream
+/// [listen] is a very light StreamSubscription interface.
+/// Is possible take the last value with [value] property.
 class GetStream<T> {
   LightSink<T> sink = LightSink<T>();
 

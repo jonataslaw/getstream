@@ -5,3 +5,4 @@ library getstream;
 
 export 'src/getstream_base.dart';
 export 'src/extension.dart';
+export 'src/new_stream.dart' hide OnData, Callback;
