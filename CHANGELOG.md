@@ -1,3 +1,7 @@
+## 1.1.0
+- Added mini stream
+- Added benchmarks
+
 ## 1.0.0
 
 - Initial version, created by Stagehand
