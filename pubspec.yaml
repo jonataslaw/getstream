@@ -1,6 +1,6 @@
 name: getstream
 description: GetStream is the lightest and most performative way of working with events at Dart. 
-version: 1.1.0
+version: 1.1.1
 homepage: https://github.com/jonataslaw/getstream
 
 environment:

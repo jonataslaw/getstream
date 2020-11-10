@@ -1,8 +1,8 @@
-/// Support for doing something awesome.
-///
-/// More dartdocs go here.
-library getstream;
+library rx_stream;
 
-export 'src/getstream_base.dart';
-export 'src/extension.dart';
-export 'src/new_stream.dart' hide OnData, Callback;
+import 'dart:async';
+part 'src/get_stream.dart';
+part 'src/mini_stream.dart';
+
+typedef OnData<T> = void Function(T data);
+typedef Callback = void Function();
