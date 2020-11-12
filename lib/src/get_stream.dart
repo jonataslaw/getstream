@@ -8,6 +8,12 @@ part of rx_stream;
 /// to stream. [listen] is a very light StreamSubscription interface.
 /// Is possible take the last value with [value] property.
 class GetStream<T> {
+  void Function() onListen;
+  void Function() onPause;
+  void Function() onResume;
+  FutureOr<void> Function() onCancel;
+
+  GetStream({this.onListen, this.onPause, this.onResume, this.onCancel});
   List<LightSubscription<T>> _onData = <LightSubscription<T>>[];
 
   bool _isBusy = false;
@@ -103,12 +109,18 @@ class GetStream<T> {
 
   LightSubscription<T> listen(void Function(T event) onData,
       {Function onError, void Function() onDone, bool cancelOnError}) {
-    final subs = LightSubscription<T>(removeSubscription)
+    final subs = LightSubscription<T>(
+      removeSubscription,
+      onPause: onPause,
+      onResume: onResume,
+      onCancel: onCancel,
+    )
       ..onData(onData)
       ..onError(onError)
       ..onDone(onDone)
       ..cancelOnError = cancelOnError;
     addSubscription(subs);
+    onListen?.call();
     return subs;
   }
 
@@ -118,19 +130,24 @@ class GetStream<T> {
 
 class LightSubscription<T> extends StreamSubscription<T> {
   final RemoveSubscription<T> _removeSubscription;
-  LightSubscription(this._removeSubscription);
+  LightSubscription(this._removeSubscription,
+      {this.onPause, this.onResume, this.onCancel});
+  final void Function() onPause;
+  final void Function() onResume;
+  final FutureOr<void> Function() onCancel;
 
   bool cancelOnError = false;
 
   @override
   Future<void> cancel() {
     _removeSubscription(this);
+    onCancel?.call();
     return Future.value();
   }
 
   OnData<T> _data;
 
-  Function(Object error, StackTrace stackTrace) _onError;
+  dynamic _onError;
 
   Callback _onDone;
 
@@ -146,10 +163,16 @@ class LightSubscription<T> extends StreamSubscription<T> {
   void onDone(Callback handleDone) => _onDone = handleDone;
 
   @override
-  void pause([Future<void> resumeSignal]) => _isPaused = true;
+  void pause([Future<void> resumeSignal]) {
+    _isPaused = true;
+    onPause?.call();
+  }
 
   @override
-  void resume() => _isPaused = false;
+  void resume() {
+    _isPaused = false;
+    onResume?.call();
+  }
 
   @override
   bool get isPaused => _isPaused;

@@ -1,3 +1,6 @@
+## 1.2.0
+- Added optional values from StreamController
+  
 ## 1.1.1
 - Improve security on concurrent events
   
